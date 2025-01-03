@@ -60,16 +60,16 @@ def create_model(X):
     return model
 
 def config_mlflow():
-    os.environ['MLFLOW_TRACKING_USERNAME'] = 'renansantosmendes'
-    os.environ['MLFLOW_TRACKING_PASSWORD'] = '6d730ef4a90b1caf28fbb01e5748f0874fda6077'
-    mlflow.set_tracking_uri('https://dagshub.com/renansantosmendes/mlops-ead.mlflow')
+    os.environ['MLFLOW_TRACKING_USERNAME'] = 'flaviorabelo'
+    os.environ['MLFLOW_TRACKING_PASSWORD'] = 'cf61f68b067a27398da4111a86054e0c79422906'
+    mlflow.set_tracking_uri('https://dagshub.com/flaviorabelo/mlops-ead.mlflow')
 
     mlflow.tensorflow.autolog(log_models=True,
                               log_input_examples=True,
                               log_model_signatures=True)
 
 def train_model(model, X_train, y_train, is_train=True ):
-    with mlflow.start_run(run_name='experiment_0mlops_ead') as run:
+    with mlflow.start_run(run_name='experiment_mlops_ead') as run:
       model.fit(X_train,
                 y_train,
                 epochs=50,
@@ -80,5 +80,7 @@ if __name__ == "__main__":
     X, y = read_data()
     X_train, X_test, y_train, y_test = process_data(X, y)
     model = create_model(X)
+    print('configurando o mlflow...')
     config_mlflow()
+    print('Treinando modelo...')
     train_model(model, X_train, y_train)
